@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Daily Check-in</title>
+  <link rel="stylesheet" href="../style/global.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="../style/navbar.css">
+  <style>
+    .hero-card {
+      margin: 16px;
+      padding: 28px 26px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(108,99,255,0.94), rgba(109,101,227,0.82));
+      color: white;
+      box-shadow: 0 32px 90px rgba(84,79,255,0.20);
+      backdrop-filter: blur(18px);
+    }
+    .hero-intro {
+      max-width: 580px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      color: rgba(255,255,255,0.92);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+      font-weight: 800;
+    }
+    .hero-copy {
+      color: rgba(255,255,255,0.86);
+      margin: 0 0 22px;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 170px;
+      padding: 14px 20px;
+      border-radius: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: rgba(255,255,255,0.18);
+      color: white;
+      text-decoration: none;
+    }
+    .hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.12);
+    }
+    .hero-btn.secondary {
+      background: rgba(255,255,255,0.12);
+    }
+    .page-shell {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 100px;
+    }
+    .hero-card {
+      width: 100%;
+      margin: 16px 0;
+    }
+    .card {
+      width: 100%;
+      margin: 12px 0;
+    }
+    .section-title {
+      margin-left: 4px;
+    }
+    .header {
+      padding: 16px 4px 0;
+    }
+    .header p {
+      color: var(--subtext);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .header h1 {
+      font-size: 28px;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .mood-row {
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 8px;
+    }
+    .mood-btn {
+      font-size: 32px;
+      background: none;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .mood-btn:hover {
+      transform: scale(1.2);
+    }
+    .mood-btn.selected {
+      border-color: var(--primary);
+      background: #EEF0FF;
+    }
+    .streak-row {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 16px;
+    }
+    .streak-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--subtext);
+    }
+    .streak-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #E5E7EB;
+    }
+    .streak-dot.done {
+      background: var(--primary);
+    }
+    .streak-dot.today {
+      background: var(--primary);
+      box-shadow: 0 0 0 3px #c7c4ff;
+    }
+    .yesterday-note {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .note-date {
+      font-size: 12px;
+      color: var(--subtext);
+      margin-top: 6px;
+      text-align: right;
+    }
+    .checkin-btn {
+      display: block;
+      margin: 20px auto 32px;
+      max-width: 920px;
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .checkin-btn:hover {
+      background: #574fd6;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-loader"></div>
+  <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+
+  <div class="page-shell">
+    <section class="hero-card" data-aos="fade-up">
+      <div class="hero-intro">
+        <span class="eyebrow">Wellness dashboard</span>
+        <h1 class="hero-title">A calmer routine for your final-year self-care journey.</h1>
+        <p class="hero-copy">Track mood, journal thoughts, and monitor mental wellness with a premium college project interface.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="journal.html" class="hero-btn">Write a journal</a>
+        <a href="wellness.html" class="hero-btn secondary">Track wellness</a>
+      </div>
+    </section>
+
+    <!-- Header -->
+    <div class="header" data-aos="fade-down">
+      <p class="text-sm text-slate-500">Good morning 👋</p>
+      <h1 class="text-4xl font-semibold tracking-tight">How are you feeling today?</h1>
+    </div>
+
+  <!-- Mood Picker -->
+  <div class="card" data-aos="fade-up">
+    <div class="section-title">Today's Mood Check-in</div>
+    <div class="mood-row">
+      <button class="mood-btn" data-mood="awful" title="Awful">😞</button>
+      <button class="mood-btn" data-mood="sad" title="Sad">😔</button>
+      <button class="mood-btn" data-mood="neutral" title="Neutral">😐</button>
+      <button class="mood-btn" data-mood="good" title="Good">😊</button>
+      <button class="mood-btn" data-mood="great" title="Great">😄</button>
+    </div>
+  </div>
+
+  <!-- This Week's Streak -->
+  <div class="section-title">This Week's Streak</div>
+  <div class="card" data-aos="fade-up">
+    <div class="streak-row" id="streakRow"></div>
+  </div>
+
+  <!-- Yesterday's Note -->
+  <div class="section-title">Yesterday's Note</div>
+  <div class="card" data-aos="fade-up">
+    <p class="yesterday-note" id="yesterdayNote">No entry yet.</p>
+    <p class="note-date" id="yesterdayDate"></p>
+  </div>
+
+  <!-- Check-in Button -->
+  <button class="checkin-btn" id="checkinBtn">Save Today's Mood</button>
+  </div>
+
+  <!-- Bottom Navbar -->
+  <nav class="navbar">
+    <a href="home.html" class="active">
+      <span class="icon">🏠</span> Home
+    </a>
+    <a href="journal.html">
+      <span class="icon">📓</span> Journal
+    </a>
+    <a href="analytics.html">
+      <span class="icon">📊</span> Analytics
+    </a>
+    <a href="wellness.html">
+      <span class="icon">🧘</span> Wellness
+    </a>
+    <a href="profile.html">
+      <span class="icon">👤</span> Profile
+    </a>
+  </nav>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/home.js"></script>
+</body>
+</html>

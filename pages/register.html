@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Mental Health Journal</title>
+  <link rel="stylesheet" href="../style/global.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background: var(--page-bg);
+    }
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.55);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: 0 24px 70px rgba(16,24,40,0.12);
+    }
+    .login-card h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+    .login-card p {
+      margin: 0 0 24px;
+      color: var(--subtext);
+      line-height: 1.5;
+    }
+    .login-card label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid rgba(100,116,139,0.22);
+      border-radius: 14px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      outline: none;
+      color: var(--text);
+    }
+    body.dark .login-card input {
+      background: rgba(255,255,255,0.07) !important;
+      border-color: rgba(148,163,184,0.30) !important;
+      color: #E2E8F0 !important;
+    }
+    .login-card input:focus {
+      border-color: var(--primary);
+    }
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .login-btn:hover { background: #574fd6; }
+    .small-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--subtext);
+      text-align: center;
+    }
+    .form-link {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--subtext);
+    }
+    .form-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-loader"></div>
+  <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+  <div class="login-card" data-aos="zoom-in">
+    <h1 class="text-3xl font-semibold tracking-tight">Create account</h1>
+    <p>Register with email and password to keep your journal secure in this browser.</p>
+    <form id="registerForm">
+      <label for="registerName">Your Name</label>
+      <input id="registerName" type="text" placeholder="Enter your name" autocomplete="name" />
+      <label for="registerEmail">Email</label>
+      <input id="registerEmail" type="email" placeholder="Enter your email" autocomplete="email" />
+      <label for="registerPassword">Password</label>
+      <input id="registerPassword" type="password" placeholder="Create a password" autocomplete="new-password" />
+      <label for="registerConfirm">Confirm Password</label>
+      <input id="registerConfirm" type="password" placeholder="Repeat your password" autocomplete="new-password" />
+      <button type="submit" class="login-btn">Register</button>
+    </form>
+    <div class="form-link">
+      Already have an account? <a href="login.html">Log in</a>
+    </div>
+    <p class="small-note">Your email and password are stored locally in this browser only.</p>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/register.js"></script>
+</body>
+</html>
