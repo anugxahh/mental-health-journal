@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal</title>
+  <link rel="stylesheet" href="../style/global.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="../style/navbar.css">
+  <style>
+    .header {
+      padding: 20px 16px 8px;
+    }
+    .header h1 {
+      font-size: 22px;
+    }
+    .header p {
+      color: var(--subtext);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .new-entry-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mood-select {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .mood-opt {
+      font-size: 26px;
+      background: #F3F4F6;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+    .mood-opt.selected {
+      border-color: var(--primary);
+      background: #EEF0FF;
+    }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      border: 1.5px solid rgba(100,116,139,0.22);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      font-family: 'Segoe UI', sans-serif;
+      resize: none;
+      outline: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.82);
+    }
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(108,99,255,0.12);
+    }
+    body.dark textarea {
+      background: rgba(255,255,255,0.07) !important;
+      border-color: rgba(148,163,184,0.30) !important;
+      color: #E2E8F0 !important;
+    }
+    body.dark textarea::placeholder { color: rgba(148,163,184,0.65); }
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #F3F4F6;
+      font-size: 13px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      color: var(--text);
+    }
+    .tag.selected {
+      background: #EEF0FF;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .save-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .save-btn:hover { background: #574fd6; }
+
+    /* Entry cards */
+    .entry-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 10px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .entry-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--subtext);
+    }
+    .entry-mood {
+      font-size: 22px;
+    }
+    .entry-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .entry-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .entry-tag {
+      font-size: 12px;
+      padding: 3px 10px;
+      background: #EEF0FF;
+      color: var(--primary);
+      border-radius: 20px;
+    }
+    .entry-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .del-btn {
+      font-size: 12px;
+      color: #EF4444;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .no-entries {
+      text-align: center;
+      color: var(--subtext);
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-loader"></div>
+  <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+
+  <div class="page-wrap">
+  <div class="header">
+    <h1>📓 Journal</h1>
+    <p>Write about your day</p>
+  </div>
+
+  <!-- New Entry Box -->
+  <div class="card new-entry-box" data-aos="fade-up">
+    <div class="section-title" style="margin:0 0 6px;">How are you feeling?</div>
+    <div class="mood-select" id="journalMoodPicker">
+      <button class="mood-opt" data-mood="awful">😞</button>
+      <button class="mood-opt" data-mood="sad">😔</button>
+      <button class="mood-opt" data-mood="neutral">😐</button>
+      <button class="mood-opt" data-mood="good">😊</button>
+      <button class="mood-opt" data-mood="great">😄</button>
+    </div>
+
+    <textarea id="journalText" placeholder="Write about your day..."></textarea>
+
+    <div class="section-title" style="margin:4px 0;">Tags</div>
+    <div class="tag-row" id="tagRow">
+      <span class="tag" data-tag="Productivity">Productivity</span>
+      <span class="tag" data-tag="Exercise">Exercise</span>
+      <span class="tag" data-tag="Self Care">Self Care</span>
+      <span class="tag" data-tag="Work">Work</span>
+      <span class="tag" data-tag="Social">Social</span>
+      <span class="tag" data-tag="Sleep">Sleep</span>
+    </div>
+
+    <button class="save-btn" id="saveEntryBtn">Save Entry ✅</button>
+  </div>
+
+  <!-- Past Entries -->
+  <div class="section-title">Past Entries</div>
+  <div id="entriesList"></div>
+  </div><!-- /.page-wrap -->
+
+  <nav class="navbar">
+    <a href="home.html"><span class="icon">🏠</span> Home</a>
+    <a href="journal.html" class="active"><span class="icon">📓</span> Journal</a>
+    <a href="analytics.html"><span class="icon">📊</span> Analytics</a>
+    <a href="wellness.html"><span class="icon">🧘</span> Wellness</a>
+    <a href="profile.html"><span class="icon">👤</span> Profile</a>
+  </nav>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/journal.js"></script>
+</body>
+</html>

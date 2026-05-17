@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness</title>
+  <link rel="stylesheet" href="../style/global.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="../style/navbar.css">
+  <style>
+    .wellness-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 16px;
+      gap: 10px;
+    }
+    .wellness-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: white;
+    }
+    .wellness-title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .wellness-description {
+      font-size: 14px;
+      color: var(--subtext);
+      text-align: center;
+      max-width: 300px;
+    }
+    .metric-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .metric-row {
+      display: grid;
+      gap: 10px;
+    }
+    .metric-row label {
+      font-size: 13px;
+      color: var(--subtext);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .metric-row span {
+      font-size: 13px;
+      color: var(--text);
+    }
+    .metric-row input[type="range"] {
+      width: 100%;
+    }
+    .metric-row input[type="number"] {
+      width: 100%;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1.5px solid rgba(100,116,139,0.22);
+      background: rgba(255,255,255,0.82);
+      color: var(--text);
+      font-size: 15px;
+    }
+    .metric-row input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(108,99,255,0.12);
+    }
+    body.dark .metric-row input[type="number"] {
+      background: rgba(255,255,255,0.07) !important;
+      border-color: rgba(148,163,184,0.30) !important;
+      color: #E2E8F0 !important;
+    }
+    .metric-row input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 99px;
+      background: rgba(108,99,255,0.22);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .metric-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 2px 8px rgba(108,99,255,0.35);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .metric-row input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    .metric-row input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: none;
+      cursor: pointer;
+    }
+    .save-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 18px;
+      margin-top: 4px;
+    }
+    .session-card {
+      background: var(--surface);
+      border: 1px solid rgba(108,99,255,0.14);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 16px 40px rgba(108,99,255,0.08);
+      backdrop-filter: blur(16px);
+    }
+    .session-card .session-header {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .session-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px 18px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .session-grid span:last-child {
+      color: var(--text);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-loader"></div>
+  <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+
+  <div class="page-wrap">
+  <div class="wellness-header" data-aos="fade-right">
+    <div class="wellness-avatar">🧘</div>
+    <div class="wellness-title text-3xl font-semibold tracking-tight">Wellness Hub</div>
+    <div class="wellness-description text-sm text-slate-400">Track stress, sleep, productivity, water, exercise and goals in one place.</div>
+  </div>
+
+  <div class="section-title">Today's Metrics</div>
+  <div class="card metric-grid" data-aos="fade-up">
+    <div class="metric-row">
+      <label for="stressInput">Stress Level <span id="stressValue">5</span></label>
+      <input id="stressInput" type="range" min="1" max="10" value="5">
+    </div>
+    <div class="metric-row">
+      <label for="sleepInput">Sleep Quality <span id="sleepValue">7</span></label>
+      <input id="sleepInput" type="range" min="1" max="10" value="7">
+    </div>
+    <div class="metric-row">
+      <label for="productivityInput">Productivity Score <span id="productivityValue">6</span></label>
+      <input id="productivityInput" type="range" min="1" max="10" value="6">
+    </div>
+    <div class="metric-row">
+      <label for="waterInput">Water Intake (cups)</label>
+      <input id="waterInput" type="number" min="0" max="20" value="8">
+    </div>
+    <div class="metric-row">
+      <label for="exerciseInput">Exercise Days This Week</label>
+      <input id="exerciseInput" type="number" min="0" max="7" value="0">
+    </div>
+    <div class="metric-row">
+      <label for="goalsInput">Goals Completed</label>
+      <input id="goalsInput" type="number" min="0" max="20" value="0">
+    </div>
+    <button class="save-btn" id="saveMetricsBtn">Save Wellness Data</button>
+  </div>
+
+  <div class="section-title">Wellness Sessions</div>
+  <div class="card" id="sessionList" data-aos="fade-up"></div>
+
+  <div class="section-title">Quick Insights</div>
+  <div class="card" id="recentInsights" data-aos="fade-up"></div>
+  </div><!-- /.page-wrap -->
+
+  <nav class="navbar">
+    <a href="home.html"><span class="icon">🏠</span> Home</a>
+    <a href="journal.html"><span class="icon">📓</span> Journal</a>
+    <a href="analytics.html"><span class="icon">📊</span> Analytics</a>
+    <a href="wellness.html" class="active"><span class="icon">🧘</span> Wellness</a>
+    <a href="profile.html"><span class="icon">👤</span> Profile</a>
+  </nav>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/wellness.js"></script>
+</body>
+</html>
