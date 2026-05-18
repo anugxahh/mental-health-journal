@@ -29,7 +29,6 @@ function averageMetric(values) {
   return Math.round(valid.reduce((a, b) => a + b, 0) / valid.length);
 }
 
-// --- Stats ---
 function calcStreak() {
   let streak = 0;
   const today = new Date();
@@ -59,7 +58,6 @@ document.getElementById('statStreak').textContent = calcStreak();
 document.getElementById('statAvg').textContent = moodEmoji[calcAvgMood()];
 document.getElementById('statHappy').textContent = calcHappyPct() + '%';
 
-// --- Key Metrics (moved ABOVE loadBreakdown so it's defined before being called) ---
 function loadKeyMetrics() {
   const weekMetrics = getWeeklyMetrics();
   const completedEntries = entries.length;
@@ -92,7 +90,7 @@ function loadKeyMetrics() {
   `).join('');
 }
 
-// --- Bar Chart (this week) ---
+
 function getWeekData() {
   const today = new Date();
   const dayOfWeek = today.getDay();
@@ -150,7 +148,7 @@ new Chart(ctx, {
   }
 });
 
-// --- Emotion Breakdown ---
+
 function loadBreakdown() {
   const moods = ['great', 'good', 'neutral', 'sad', 'awful'];
   const moodLabels = { great: '😄 Great', good: '😊 Good', neutral: '😐 Neutral', sad: '😔 Sad', awful: '😞 Awful' };
@@ -170,7 +168,7 @@ function loadBreakdown() {
   }).join('');
 }
 
-// --- Insight ---
+
 function loadInsight() {
   const streak = calcStreak();
   const avg = calcAvgMood();
@@ -192,7 +190,7 @@ function loadInsight() {
   document.getElementById('insightText').textContent = insight;
 }
 
-// --- Init (correct call order) ---
+
 loadKeyMetrics();
 loadBreakdown();
 loadInsight();
