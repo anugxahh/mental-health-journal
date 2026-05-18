@@ -6,7 +6,6 @@ const moodEmojis = {
 
 let selectedMood = null;
 
-// Dynamic greeting based on time of day
 function getGreeting() {
   const hour = new Date().getHours();
   if (hour < 12) return 'Good morning';
@@ -14,7 +13,7 @@ function getGreeting() {
   return 'Good evening';
 }
 
-// Mood button selection
+
 document.querySelectorAll('.mood-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
@@ -23,14 +22,13 @@ document.querySelectorAll('.mood-btn').forEach(btn => {
   });
 });
 
-// Save mood button
+
 document.getElementById('checkinBtn').addEventListener('click', () => {
   if (!selectedMood) {
     alert('Please select a mood first!');
     return;
   }
 
-  // Check if today already logged
   const entries = getAllEntries();
   const alreadyLogged = entries.find(e => e.date === getTodayStr());
   if (alreadyLogged) {
@@ -48,13 +46,12 @@ document.getElementById('checkinBtn').addEventListener('click', () => {
   window.location.href = 'journal.html';
 });
 
-// Load streak row
 function loadStreak() {
   const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   const entries = getAllEntries();
   const dates = entries.map(e => e.date);
   const today = new Date();
-  const dayOfWeek = today.getDay(); // 0=Sun
+  const dayOfWeek = today.getDay(); 
   const monday = new Date(today);
   monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
 
@@ -75,7 +72,6 @@ function loadStreak() {
   }
 }
 
-// Load yesterday's note
 function loadYesterdayNote() {
   const entries = getAllEntries();
   const yest = entries.find(e => e.date === getYesterdayStr());
