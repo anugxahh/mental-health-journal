@@ -1,4 +1,4 @@
-// redirectIfLoggedIn is called here (auth.js loaded before this script)
+
 redirectIfLoggedIn();
 
 document.addEventListener('DOMContentLoaded', () => {
