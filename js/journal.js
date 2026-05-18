@@ -7,7 +7,6 @@ const moodEmojis = {
 let selectedMood = null;
 let selectedTags = [];
 
-// Mood picker
 document.querySelectorAll('.mood-opt').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.mood-opt').forEach(b => b.classList.remove('selected'));
@@ -16,7 +15,6 @@ document.querySelectorAll('.mood-opt').forEach(btn => {
   });
 });
 
-// Tag picker
 document.querySelectorAll('.tag').forEach(tag => {
   tag.addEventListener('click', () => {
     tag.classList.toggle('selected');
@@ -29,7 +27,6 @@ document.querySelectorAll('.tag').forEach(tag => {
   });
 });
 
-// Save entry
 document.getElementById('saveEntryBtn').addEventListener('click', () => {
   const text = document.getElementById('journalText').value.trim();
   if (!selectedMood) { alert('Please select a mood!'); return; }
@@ -44,7 +41,6 @@ document.getElementById('saveEntryBtn').addEventListener('click', () => {
 
   saveEntry(entry);
 
-  // Reset form
   selectedMood = null;
   selectedTags = [];
   document.getElementById('journalText').value = '';
@@ -54,9 +50,8 @@ document.getElementById('saveEntryBtn').addEventListener('click', () => {
   loadEntries();
 });
 
-// Load past entries
 function loadEntries() {
-  // Get entries and keep original indices before reversing for display
+
   const allEntries = getAllEntries();
   const list = document.getElementById('entriesList');
 
@@ -65,9 +60,8 @@ function loadEntries() {
     return;
   }
 
-  // Build display in reverse order but track the REAL index in the storage array
   list.innerHTML = allEntries.slice().reverse().map((e, displayIndex) => {
-    const realIndex = allEntries.length - 1 - displayIndex; // correct original index
+    const realIndex = allEntries.length - 1 - displayIndex; 
     return `
       <div class="entry-card">
         <div class="entry-top">
