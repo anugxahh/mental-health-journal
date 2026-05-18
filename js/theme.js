@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       duration: 600,
       once: true,
       easing: 'ease-out-quart',
-      offset: 40,          // trigger earlier so cards don't jump
+      offset: 40,         
       delay: 0,
       anchorPlacement: 'top-bottom',
       disable: false
