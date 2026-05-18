@@ -54,7 +54,7 @@ body {
   transition: background 0.45s ease, color 0.35s ease;
 }
 
-/* All page content is centered via this inner wrapper */
+
 body > *:not(.navbar):not(.theme-toggle):not(.page-loader) {
   max-width: 860px;
   margin-left: auto;
@@ -264,7 +264,7 @@ textarea {
   font-size: 15px;
 }
 
-/* Dark mode — covers all input types including number */
+
 body.dark input,
 body.dark input[type="text"],
 body.dark input[type="email"],
@@ -374,7 +374,6 @@ textarea {
   }
 }
 
-/* ─── Centering wrapper used on all pages ─── */
 .page-wrap {
   width: 100%;
   max-width: 860px;
@@ -382,8 +381,7 @@ textarea {
   padding: 0 20px;
 }
 
-/* ─── AOS: prevent animation from collapsing layout ─── */
-/* Override AOS default transforms so only opacity fades, no position shifts */
+
 [data-aos] {
   pointer-events: none;
 }
@@ -391,7 +389,7 @@ textarea {
   pointer-events: auto;
 }
 
-/* Prevent the pre-animation invisible state from causing overlapping layout */
+
 [data-aos="fade-up"],
 [data-aos="fade-down"],
 [data-aos="fade-right"],
