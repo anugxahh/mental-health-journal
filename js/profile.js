@@ -6,7 +6,6 @@ const avatarByMood = { 1: '😞', 2: '😔', 3: '😐', 4: '😊', 5: '😄' };
 
 const entries = getAllEntries();
 
-// --- Stats ---
 function calcStreak() {
   let streak = 0;
   const today = new Date();
@@ -60,7 +59,6 @@ document.getElementById('avatarEmoji').textContent = avatarByMood[avg];
 animateValue('profileStreak', calcStreak());
 animateValue('profileHappy', calcHappy(), 1100, '%');
 
-// --- Name ---
 function loadName() {
   const user = getCurrentUser();
   const name = (user && user.name) || localStorage.getItem('mhj_name') || '';
@@ -78,7 +76,6 @@ document.getElementById('saveNameBtn').addEventListener('click', function() {
 
 loadName();
 
-// --- Intentions ---
 function getIntentions() {
   return JSON.parse(localStorage.getItem('mhj_intentions') || '[]');
 }
@@ -124,7 +121,6 @@ document.getElementById('addIntentionBtn').addEventListener('click', function() 
 
 loadIntentions();
 
-// --- Recent Insights ---
 function loadInsights() {
   const streak = calcStreak();
   const happy = calcHappy();
@@ -144,19 +140,17 @@ function loadInsights() {
 
 loadInsights();
 
-// --- Logout ---
 document.getElementById('logoutBtn').addEventListener('click', function() {
   if (confirm('Logout will take you back to the login screen.')) {
     logoutUser();
   }
 });
 
-// --- Clear Data (only clears current user's data, not the users registry) ---
 document.getElementById('clearBtn').addEventListener('click', function() {
   if (confirm('This will delete ALL your entries and data. Are you sure?')) {
-    const users = JSON.parse(localStorage.getItem('mhj_users') || '{}'); // preserve accounts
+    const users = JSON.parse(localStorage.getItem('mhj_users') || '{}'); 
     localStorage.clear();
-    localStorage.setItem('mhj_users', JSON.stringify(users)); // restore accounts
+    localStorage.setItem('mhj_users', JSON.stringify(users)); 
     alert('All data cleared!');
     window.location.href = 'login.html';
   }
